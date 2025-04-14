@@ -72,6 +72,21 @@ def get_transfer_field(client: EOSCClient, job_id: str, field_name: str):
     except Exception as e:
         raise ValueError(f"Failed to convert value for field '{field_name}' to {expected_type}: {e}")
 
+def cancel_transfer(client: EOSCClient, job_id: str) -> TransferStatus:
+    """
+    Cancel a transfer job with a job_id
+
+    Args:
+        client: The API client.
+        job_id: Transfer job ID.
+
+    Returns:
+        returns the canceled transfer with its current status (canceled or any other final status).
+    """
+    response = client.request("DELETE", f"/transfer/{job_id}")
+    return TransferStatus(**response)
+
+
 def list_transfers(client: EOSCClient, limit: int = 10, offset: int = 0) -> TransferList:
     response = client.request("GET", f"/transfers?limit={limit}&offset={offset}")
     return TransferList(**response)
