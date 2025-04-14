@@ -1,0 +1,19 @@
+[project]
+name = "eosc-data-transfer-client"
+version = "0.1.0"
+description = "A typed Python client for the EOSC Data Transfer REST API"
+authors = [
+    { name="Your Name", email="joao.pedro.batista.lopes@cern.ch" }
+]
+dependencies = [
+    "requests>=2.31.0",
+    "pydantic>=2.0"
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "Apache 2.0"}
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+

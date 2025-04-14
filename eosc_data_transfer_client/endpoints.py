@@ -1,0 +1,33 @@
+#   Copyright 2015-2020 CERN
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+from .client import EOSCClient
+from .models import TransferRequest, TransferResponse, TransferStatus, TransferList
+
+def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferResponse:
+    """
+    Initiates a new data transfer using a structured TransferRequest.
+    Returns a TransferResponse model.
+    """
+    response = client.request("POST", "/transfers", json=transfer.dict())
+    return TransferResponse(**response)
+
+def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:
+    response = client.request("GET", f"/transfers/{transfer_id}")
+    return TransferStatus(**response)
+
+def list_transfers(client: EOSCClient, limit: int = 10, offset: int = 0) -> TransferList:
+    response = client.request("GET", f"/transfers?limit={limit}&offset={offset}")
+    return TransferList(**response)
+
