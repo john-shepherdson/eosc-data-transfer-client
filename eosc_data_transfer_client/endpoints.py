@@ -24,7 +24,7 @@ def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferRe
     return TransferResponse(**response)
 
 def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:
-    response = client.request("GET", f"/transfers/{transfer_id}")
+    response = client.request("GET", f"/transfer/{transfer_id}")
     return TransferStatus(**response)
 
 def list_transfers(client: EOSCClient, limit: int = 10, offset: int = 0) -> TransferList:

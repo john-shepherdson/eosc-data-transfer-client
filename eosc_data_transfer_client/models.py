@@ -39,16 +39,23 @@ class TransferResponse(BaseModel):
     jobId: str
 
 class TransferStatus(BaseModel):
-    transfer_id: str
-    status: str
-    source: str
-    destination: str
-    created_at: datetime
-    updated_at: Optional[datetime]
-    priority: Optional[str]
-    metadata: Optional[Dict[str, str]]
-    message: Optional[str]
-
+    kind: str
+    jobId: str
+    source_se: str
+    destination_se: Optional[str] = None
+    verifyChecksum: str
+    overwrite: bool
+    priority: int
+    retry: int
+    retryDelay: int
+    cancel: bool
+    submittedAt: datetime
+    submittedTo: str
+    finishedAt: datetime
+    reason: str
+    vo_name: str
+    user_dn: str
+    cred_id: str
 
 class TransferList(BaseModel):
     transfers: List[TransferStatus]
