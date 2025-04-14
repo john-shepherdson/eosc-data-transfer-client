@@ -1,4 +1,4 @@
-#   Copyright 2015-2020 CERN
+#   Copyright 2025 CERN
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -86,8 +86,19 @@ def cancel_transfer(client: EOSCClient, job_id: str) -> TransferStatus:
     response = client.request("DELETE", f"/transfer/{job_id}")
     return TransferStatus(**response)
 
+def list_transfers(client: EOSCClient, **filters: Optional[Any]) -> TransferList:
+    """
+    Find transfers matching search criteria.
 
-def list_transfers(client: EOSCClient, limit: int = 10, offset: int = 0) -> TransferList:
-    response = client.request("GET", f"/transfers?limit={limit}&offset={offset}")
+    Args:
+        client: The API client.
+        **filters: Optional query parameters to filter the search.
+
+    Returns:
+        TransferList: A list of transfers matching the criteria.
+    """
+    # Filter out None values
+    query_params = {k: v for k, v in filters.items() if v is not None}
+    response = client.request("GET", "/transfers", params=query_params)
     return TransferList(**response)
 
