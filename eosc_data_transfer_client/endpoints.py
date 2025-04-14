@@ -14,6 +14,7 @@
 
 from .client import EOSCClient
 from .models import TransferRequest, TransferResponse, TransferStatus, TransferList
+from datetime import datetime
 
 def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferResponse:
     """
@@ -26,6 +27,50 @@ def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferRe
 def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:
     response = client.request("GET", f"/transfer/{transfer_id}")
     return TransferStatus(**response)
+
+def get_transfer_field(client: EOSCClient, job_id: str, field_name: str):
+    """
+    Retrieve a specific field from a transfer job, using TransferStatus model for type resolution.
+
+    Args:
+        client: The API client.
+        job_id: Transfer job ID.
+        field_name: Field to retrieve.
+
+    Returns:
+        The value of the requested field, properly typed.
+
+    Raises:
+        ValueError: If the field name is invalid or type conversion fails.
+    """
+    model_fields = TransferStatus.model_fields
+    if field_name not in model_fields:
+        raise ValueError(f"Unsupported field name: '{field_name}'. Must be one of: {list(model_fields.keys())}")
+
+    expected_type = model_fields[field_name].annotation
+    raw_response = client.request("GET", f"/transfer/{job_id}/{field_name}")
+
+    # Extract from "entity"
+    value = raw_response.get("entity", None)
+    if value is None:
+        raise ValueError(f"No 'entity' found in response for field '{field_name}'")
+
+    # Parse value based on expected type
+    try:
+        if expected_type is int:
+            return int(value)
+        elif expected_type is float:
+            return float(value)
+        elif expected_type is datetime:
+            return datetime.fromisoformat(value)
+        elif expected_type is bool:
+            return str(value).lower() in {"true", "1", "yes"}
+        elif expected_type is dict:
+            return value if isinstance(value, dict) else {}
+        else:
+            return str(value)
+    except Exception as e:
+        raise ValueError(f"Failed to convert value for field '{field_name}' to {expected_type}: {e}")
 
 def list_transfers(client: EOSCClient, limit: int = 10, offset: int = 0) -> TransferList:
     response = client.request("GET", f"/transfers?limit={limit}&offset={offset}")

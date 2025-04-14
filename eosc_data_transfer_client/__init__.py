@@ -14,7 +14,7 @@
 
 from .client import EOSCClient
 from .models import TransferRequest, TransferResponse, TransferStatus, TransferList, TransferParameters, FileTransfer
-from .endpoints import create_transfer, list_transfers, get_transfer_status
+from .endpoints import create_transfer, list_transfers, get_transfer_status, get_transfer_field
 
 __all__ = [
     "EOSCClient",
@@ -25,5 +25,6 @@ __all__ = [
     "create_transfer",
     "list_transfers",
     "get_transfer_status",
+    "get_transfer_filed"
 ]
 
