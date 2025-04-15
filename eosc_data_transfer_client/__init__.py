@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from .client import EOSCClient
-from .models import TransferRequest, TransferResponse, TransferStatus, TransferList, TransferParameters, FileTransfer
+from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList, TransferParameters, FileTransfer
 from .endpoints import create_transfer, list_transfers, get_transfer_status, get_transfer_field, cancel_transfer
 
 __all__ = [
@@ -21,7 +21,7 @@ __all__ = [
     "TransferRequest",
     "TransferResponse",
     "TransferStatus",
-    "TransferList",
+    "TransferStatusList",
     "create_transfer",
     "list_transfers",
     "get_transfer_status",

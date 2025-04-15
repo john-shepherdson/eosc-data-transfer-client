@@ -13,8 +13,9 @@
 #   limitations under the License.
 
 from .client import EOSCClient
-from .models import TransferRequest, TransferResponse, TransferStatus, TransferList
+from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList
 from datetime import datetime
+from typing import Optional, Any
 
 def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferResponse:
     """
@@ -86,7 +87,7 @@ def cancel_transfer(client: EOSCClient, job_id: str) -> TransferStatus:
     response = client.request("DELETE", f"/transfer/{job_id}")
     return TransferStatus(**response)
 
-def list_transfers(client: EOSCClient, **filters: Optional[Any]) -> TransferList:
+def list_transfers(client: EOSCClient, **filters: Optional[Any]) -> TransferStatusList:
     """
     Find transfers matching search criteria.
 
@@ -95,10 +96,10 @@ def list_transfers(client: EOSCClient, **filters: Optional[Any]) -> TransferList
         **filters: Optional query parameters to filter the search.
 
     Returns:
-        TransferList: A list of transfers matching the criteria.
+        TransferStatusList: A list of transfers matching the criteria.
     """
     # Filter out None values
     query_params = {k: v for k, v in filters.items() if v is not None}
     response = client.request("GET", "/transfers", params=query_params)
-    return TransferList(**response)
+    return TransferStatusList(**response)
 
