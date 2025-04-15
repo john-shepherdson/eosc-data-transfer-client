@@ -44,15 +44,15 @@ class TransferStatus(BaseModel):
     source_se: str
     destination_se: Optional[str] = None
     verifyChecksum: str
-    overwrite: bool
+    overwrite: Optional[bool] = False
     priority: int
     retry: int
     retryDelay: int
     cancel: bool
     submittedAt: datetime
     submittedTo: str
-    finishedAt: datetime
-    reason: str
+    finishedAt: Optional[datetime] = None
+    reason: Optional[str] = Field(default="", description="The error reason")
     vo_name: str
     user_dn: str
     cred_id: str
