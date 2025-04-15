@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ```python
 from eosc_data_transfer_client.client import EOSCClient
-from eosc_data_transfer_client.models import TransferRequest
+from eosc_data_transfer_client.models import TransferRequest, FileTransfer, TransferParameters
 from eosc_data_transfer_client.endpoints import create_transfer
 
 client = EOSCClient("https://eosc-data-transfer.cern.ch", token="your_token")
@@ -31,16 +31,18 @@ params = TransferParameters(
 )
 
 transfer = FileTransfer(
-    sources = ["mock://source.io/path/to/file.txt"],
-    destinations = ["mock://destination.io/path/to/file.txt"]
+    sources = ["mock://source.io/path/to/file.txt?checksum=88a2d31f "],
+    destinations = ["mock://destination.io/path/to/file.txt?checksum=88a2d31f&time=60"],
+    checksum = "ADLER32:88a2d31f",
+    filesize = 1234
 )
 
 request = TransferRequest(
-    files = transfer,
+    files = [transfer],
     params = params
 )
 
-result = create_transfer(client, transfer)
+result = create_transfer(client, request)
 print(result.jobId)
 ```
 
