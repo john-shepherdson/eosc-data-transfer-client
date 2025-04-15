@@ -21,9 +21,9 @@ pip install -r requirements.txt
 ```python
 from eosc_data_transfer_client.client import EOSCClient
 from eosc_data_transfer_client.models import TransferRequest, FileTransfer, TransferParameters
-from eosc_data_transfer_client.endpoints import create_transfer
+from eosc_data_transfer_client.endpoints import create_transfer, get_transfer_status
 
-client = EOSCClient("https://eosc-data-transfer.cern.ch", token="your_token")
+client = EOSCClient("https://data-transfer.service.eosc-beyond.eu", token="your_token")
 
 params = TransferParameters(
     verifyChecksum=False,
@@ -44,6 +44,8 @@ request = TransferRequest(
 
 result = create_transfer(client, request)
 print(result.jobId)
+
+status = get_transfer_status(client, result.jobId)
 ```
 
 ## Development
