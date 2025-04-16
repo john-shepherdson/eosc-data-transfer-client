@@ -131,3 +131,37 @@ def test_list_transfers_with_vo_filter():
         assert response.count == 1
         assert response.transfers[0].jobId == "abc-123"
 
+# Cancelling a transfer
+def test_cancel_transfer_success():
+    client = make_client()
+    mock_response = {
+        "kind": "transfer",
+        "jobId": "job-123",
+        "jobState": "CANCELED",
+        "submittedAt": "2023-01-01T00:00:00",
+        "finishedAt": "2023-01-01T00:01:00",
+        "jobType": "copy",
+        "jobMetadata": {},
+        "source_se": "src",
+        "destination_se": "dst",
+        "verifyChecksum": "true",
+        "overwrite": True,
+        "priority": 1,
+        "retry": 0,
+        "retryDelay": 0,
+        "maxTimeInQueue": 0,
+        "cancel": False,
+        "submittedAt": "2023-01-01T00:00:00",
+        "submittedTo": "host",
+        "finishedAt": "2023-01-01T00:01:00",
+        "reason": "",
+        "vo_name": "my-vo",
+        "user_dn": "dn",
+        "cred_id": "cred"
+    }
+
+    with requests_mock.Mocker() as m:
+        m.delete(f"{BASE_URL}/transfer/job-123", json=mock_response)
+        result = cancel_transfer(client, "job-123")
+        assert result.jobId == "job-123"
+        assert result.jobState == "CANCELED"
