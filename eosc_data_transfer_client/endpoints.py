@@ -111,7 +111,7 @@ def cancel_transfer(client: EOSCClient, job_id: str) -> TransferStatus:
         job_id: Transfer job ID.
 
     Returns:
-        returns the canceled transfer with its current status (canceled or any other final status).
+        TransferStatus: The canceled transfer with its current status (canceled or any other final status).
     """
     response = client.request("DELETE", f"/transfer/{job_id}")
     return TransferStatus(**response)
