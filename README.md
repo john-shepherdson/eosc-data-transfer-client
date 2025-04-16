@@ -16,6 +16,15 @@ cd eosc-data-transfer-client
 pip install -r requirements.txt
 ```
 
+# Features
+
+* Submit and monitor data transfers
+* Cancel jobs
+* Filter and search transfers
+* Robust error handling with custom exceptions
+* Pydantic models for easy validation
+* Unit tests included with pytest
+
 ## Usage
 
 ```python
@@ -59,6 +68,12 @@ To contribute or modify:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+### Running the tests
+```bash
+pip install pytest requests-mock
+pytest tests/
 ```
 
 ## Licence
