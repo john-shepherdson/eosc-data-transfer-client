@@ -43,6 +43,7 @@ class TransferStatus(BaseModel):
     jobId: str
     source_se: str
     destination_se: Optional[str] = None
+    jobState: str
     verifyChecksum: str
     overwrite: Optional[bool] = False
     priority: int
