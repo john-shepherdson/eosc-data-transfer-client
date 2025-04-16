@@ -4,9 +4,13 @@ A simple, typed Python client for interacting with the [EOSC Data Transfer API](
 
 ## Features
 
-- Authenticated API access
-- Typed request/response models
-- Supports creating and listing data transfers
+* Authenticated API access
+* Submit and monitor data transfers
+* Cancel data transfer jobs
+* Filter and search transfers
+* Robust error handling with custom exceptions
+* Pydantic models for easy validation
+* Unit tests included with pytest
 
 ## Installation
 
@@ -15,15 +19,6 @@ git clone https://gitlab.com/fts/eosc-data-transfer-client.git
 cd eosc-data-transfer-client
 pip install -r requirements.txt
 ```
-
-# Features
-
-* Submit and monitor data transfers
-* Cancel jobs
-* Filter and search transfers
-* Robust error handling with custom exceptions
-* Pydantic models for easy validation
-* Unit tests included with pytest
 
 ## Usage
 
