@@ -13,7 +13,7 @@ This guide will walk you through setting up and using the **EOSC Data Transfer C
 ## Installation
 
 ```bash
-git clone https://your.repo.url/eosc-data-transfer-client.git
+git clone https://gitlab.cern.ch/batistal/eosc-data-transfer-client.git
 cd eosc-data-transfer-client
 python3 -m venv .venv
 source .venv/bin/activate
