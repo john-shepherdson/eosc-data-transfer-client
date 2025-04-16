@@ -11,8 +11,11 @@ nav:
       - Models: reference/models.md
 
 plugins:
+  - search
   - mkdocstrings:
-      default_handler: python
+      handlers:
+        python:
+          paths: ["."]
 
 markdown_extensions:
   - admonition
