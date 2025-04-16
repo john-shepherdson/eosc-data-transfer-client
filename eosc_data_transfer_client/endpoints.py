@@ -19,13 +19,42 @@ from typing import Optional, Any
 
 def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferResponse:
     """
-    Initiates a new data transfer using a structured TransferRequest.
-    Returns a TransferResponse model.
+    Initiate a new data transfer.
+
+    This function sends a `POST` request to the EOSC Data Transfer API to create a new transfer job.
+
+    Arguments:
+        client: An instance of `EOSCClient` configured with base URL and authentication.
+        transfer: A `TransferRequest` object describing the files to transfer and transfer parameters.
+
+    Returns:
+        TransferResponse: An object containing details about the submitted transfer, including job ID and status.
+
+    Raises:
+        EOSCClientError: If the API returns a 4xx error (e.g., invalid input).
+        EOSCServerError: If the API returns a 5xx error (e.g., internal server error).
     """
     response = client.request("POST", "/transfers", json=transfer.dict())
     return TransferResponse(**response)
 
 def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:
+    """
+    Retrieve the status of a transfer job.
+
+    This function sends a `GET` request to the API to fetch full details about a specific transfer job
+    using its job ID.
+
+    Arguments:
+        client: An instance of `EOSCClient` for making authenticated requests.
+        transfer_id: The ID of the transfer job to retrieve.
+
+    Returns:
+        TransferStatus: An object with detailed information about the job, including state, timestamps, and metadata.
+
+    Raises:
+        EOSCClientError: If the job ID is invalid or not found.
+        EOSCServerError: If the API encounters an internal issue.
+    """
     response = client.request("GET", f"/transfer/{transfer_id}")
     return TransferStatus(**response)
 
