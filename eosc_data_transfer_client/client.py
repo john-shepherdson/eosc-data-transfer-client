@@ -13,6 +13,7 @@
 #   limitations under the License.
 
 import requests
+from typing import Any, Union
 from .exceptions import EOSCClientError, EOSCServerError, EOSCRequestError
 
 class EOSCClient:
@@ -34,7 +35,7 @@ class EOSCClient:
             self.session.headers.update({"Authorization": f"Bearer {token}"})
         self.session.headers.update({"Content-Type": "application/json"})
 
-    def request(self, method, endpoint, **kwargs):
+    def request(self, method, endpoint, **kwargs: Any) -> Union[dict, str]:
         """
         Send a request to the API and handle errors.
 

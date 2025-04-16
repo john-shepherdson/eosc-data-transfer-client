@@ -15,7 +15,7 @@
 from .client import EOSCClient
 from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList
 from datetime import datetime
-from typing import Optional, Any
+from typing import Optional, Any, Union
 
 def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferResponse:
     """
@@ -58,7 +58,7 @@ def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:
     response = client.request("GET", f"/transfer/{transfer_id}")
     return TransferStatus(**response)
 
-def get_transfer_field(client: EOSCClient, job_id: str, field_name: str):
+def get_transfer_field(client: EOSCClient, job_id: str, field_name: str) -> Union[str, int, bool, dict, datetime]:
     """
     Retrieve a specific field from a transfer job, using TransferStatus model for type resolution.
 
