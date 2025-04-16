@@ -9,6 +9,7 @@ nav:
       - Client: reference/client.md
       - Endpoints: reference/endpoints.md
       - Models: reference/models.md
+      - Exceptions: reference/exceptions.md
 
 plugins:
   - search

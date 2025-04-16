@@ -13,27 +13,54 @@
 #   limitations under the License.
 
 class EOSCError(Exception):
-    """Base exception for EOSC Data Transfer client."""
+    """Base exception for EOSC Data Transfer client.
+
+    All custom exceptions inherit from this class.
+    """
     pass
 
 class EOSCClientError(EOSCError):
-    """4xx Client-side errors (invalid request, auth, etc.)."""
+    """Raised for 4xx client-side HTTP errors (e.g., invalid request, authentication issues)."""
+
     def __init__(self, status_code, message, response=None):
+        """
+        Initialize a client error.
+
+        Args:
+            status_code (int): HTTP status code.
+            message (str): Error message from the server or client.
+            response (object, optional): Full response object from the request library.
+        """
         self.status_code = status_code
         self.message = message
         self.response = response
         super().__init__(f"[{status_code}] Client Error: {message}")
 
 class EOSCServerError(EOSCError):
-    """5xx Server-side errors."""
+    """Raised for 5xx server-side HTTP errors."""
+
     def __init__(self, status_code, message, response=None):
+        """
+        Initialize a server error.
+
+        Args:
+            status_code (int): HTTP status code.
+            message (str): Error message returned from the server.
+            response (object, optional): Full response object from the request library.
+        """
         self.status_code = status_code
         self.message = message
         self.response = response
         super().__init__(f"[{status_code}] Server Error: {message}")
 
 class EOSCRequestError(EOSCError):
-    """Any other error like connection timeout, network down, etc."""
+    """Raised for request failures like timeouts, network issues, or invalid URLs."""
     def __init__(self, message):
+        """
+        Initialize a request error.
+
+        Args:
+            message (str): A description of the request failure.
+        """
         super().__init__(f"Request failed: {message}")
 
