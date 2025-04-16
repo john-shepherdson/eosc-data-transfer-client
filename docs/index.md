@@ -14,7 +14,7 @@ It is built on top of the [requests](https://docs.python-requests.org/en/latest/
 
 ## Features
 
-- asy integration with the EOSC Data Transfer API
+- Easy integration with the EOSC Data Transfer API
 - Pydantic models for request/response validation
 - Wrapper functions for common endpoints
 - Clear error handling with custom exceptions
@@ -27,8 +27,6 @@ It is built on top of the [requests](https://docs.python-requests.org/en/latest/
 
 - [Getting Started](getting-started.md)
 - [API Reference](reference/)
-- [Usage Examples](usage.md)
-- [Contributing](contributing.md)
 
 ---
 
