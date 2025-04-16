@@ -1,6 +1,8 @@
 # EOSC Data Transfer Python Client
 
-A simple, typed Python client for interacting with the [EOSC Data Transfer API](https://eosc-data-transfer.cern.ch/swagger-ui/), built with `requests` and `pydantic`.
+A simple, typed Python client for interacting with the [EOSC Data Transfer API](https://data-transfer.service.eosc-beyond.eu/swagger-ui/), built with `requests` and `pydantic`.
+
+Look at the complete [documentation](https://eosc-data-transfer-client.docs.cern.ch/) for usage examples, models, and API details.
 
 ## Features
 
