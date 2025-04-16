@@ -1,0 +1,21 @@
+site_name: EOSC Data Transfer Client
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - API Reference:
+      - Client: reference/client.md
+      - Endpoints: reference/endpoints.md
+      - Models: reference/models.md
+
+plugins:
+  - mkdocstrings:
+      default_handler: python
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+
