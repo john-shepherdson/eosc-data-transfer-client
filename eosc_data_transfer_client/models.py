@@ -17,12 +17,31 @@ from typing import Optional, Dict, List
 from datetime import datetime
 
 class TransferParameters(BaseModel):
+    """
+    Defines optional parameters to control the behavior of a transfer job.
+
+    Attributes:
+        verifyChecksum (Optional[bool]): Whether to verify the checksum of the destination file.
+        overwrite (Optional[bool]): Whether to overwrite the destination file if it already exists.
+        retry (Optional[int]): Number of times a failed transfer should be retried.
+        priority (Optional[int]): The priority level of the transfer.
+    """
     verifyChecksum: Optional[bool] = Field(default=False, description="Verify the checksum of the destination file")
     overwrite: Optional[bool] = Field(default=False, description="Should the destination file be overwritten if it already exists")
     retry: Optional[int] = Field(default=0, description="How many times a failed transfer should be retried")
     priority: Optional[int] = Field(default=3, description="Priority of the transfer")
 
 class FileTransfer(BaseModel):
+    """
+    Represents the details of a file transfer.
+
+    Attributes:
+        sources (List[str]): List of source file paths.
+        destinations (List[str]): List of destination file paths.
+        checksum (str): Checksum of the file to verify integrity.
+        filesize (int): Size of the file in bytes.
+        activity (Optional[str]): Activity associated with the transfer (default: 'default').
+    """
     sources: List[str]
     destinations: List[str]
     checksum: str
@@ -31,14 +50,51 @@ class FileTransfer(BaseModel):
     #metadata: Optional[Dict[str, str]] = None
 
 class TransferRequest(BaseModel):
+    """
+    Represents a request to initiate a transfer job.
+
+    Attributes:
+        files (List[FileTransfer]): List of file transfers to be executed.
+        params (TransferParameters): Parameters controlling the behavior of the transfer job.
+    """
     files: List[FileTransfer]
     params: TransferParameters
 
 class TransferResponse(BaseModel):
+    """
+    Represents the response received after initiating a transfer job.
+
+    Attributes:
+        kind (str): The kind of transfer job.
+        jobId (str): The unique job ID for the transfer.
+    """
     kind: str
     jobId: str
 
 class TransferStatus(BaseModel):
+    """
+    Represents the status of an ongoing or completed transfer job.
+
+    Attributes:
+        kind (str): The kind of transfer job.
+        jobId (str): The unique job ID for the transfer.
+        source_se (str): The source storage element.
+        destination_se (Optional[str]): The destination storage element (if any).
+        jobState (str): The state of the job (e.g., 'completed', 'in-progress').
+        verifyChecksum (str): Whether checksum verification is enabled.
+        overwrite (Optional[bool]): Whether overwriting is allowed.
+        priority (int): Priority of the transfer.
+        retry (int): Retry count.
+        retryDelay (int): Retry delay time.
+        cancel (bool): Whether the job has been canceled.
+        submittedAt (datetime): Timestamp when the job was submitted.
+        submittedTo (str): The system to which the job was submitted.
+        finishedAt (Optional[datetime]): Timestamp when the job finished.
+        reason (Optional[str]): The error reason (if any).
+        vo_name (str): The VO name associated with the transfer.
+        user_dn (str): The user distinguished name.
+        cred_id (str): The credential ID.
+    """
     kind: str
     jobId: str
     source_se: str
@@ -59,6 +115,14 @@ class TransferStatus(BaseModel):
     cred_id: str
 
 class TransferStatusList(BaseModel):
+    """
+    Represents a list of transfer statuses.
+
+    Attributes:
+        kind (str): The kind of transfer status list.
+        count (int): The number of transfers in the list.
+        transfers (List[TransferStatus]): List of individual transfer statuses.
+    """
     kind: str
     count: int
     transfers: List[TransferStatus]
