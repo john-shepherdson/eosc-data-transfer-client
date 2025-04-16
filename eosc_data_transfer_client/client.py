@@ -16,7 +16,18 @@ import requests
 from .exceptions import EOSCClientError, EOSCServerError, EOSCRequestError
 
 class EOSCClient:
+    """
+    A client for interacting with the EOSC Data Transfer API.
+    Handles authentication, request sending, and error parsing.
+    """
     def __init__(self, base_url: str, token: str = None):
+        """
+        Initializes the EOSCClient.
+
+        Args:
+            base_url (str): The base URL of the EOSC API.
+            token (str, optional): Bearer token for authorization.
+        """
         self.base_url = base_url.rstrip('/')
         self.session = requests.Session()
         if token:
@@ -24,6 +35,22 @@ class EOSCClient:
         self.session.headers.update({"Content-Type": "application/json"})
 
     def request(self, method, endpoint, **kwargs):
+        """
+        Send a request to the API and handle errors.
+
+        Args:
+            method (str): HTTP method (e.g., 'GET', 'POST').
+            endpoint (str): API endpoint path.
+            **kwargs: Additional request options.
+
+        Returns:
+            Union[dict, str]: Parsed response from the API.
+
+        Raises:
+            EOSCClientError: For 4xx errors.
+            EOSCServerError: For 5xx errors.
+            EOSCRequestError: For network issues.
+        """
         url = f"{self.base_url}{endpoint}"
         try:
             response = self.session.request(method, url, **kwargs, verify=False)
