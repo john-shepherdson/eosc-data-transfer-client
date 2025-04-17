@@ -173,8 +173,12 @@ class UserInfo(BaseModel):
 
     Attributes:
         kind (str): The type of content (should be 'StorageContent').
-        base_id (base_id): Number of elements parsed.
-        user_dn (str): List of parsed file or folder items.
+        base_id (base_id): The id that identifies the user.
+        user_dn (str): The user distinguished name (DN)
+        delegation_id (str): The delegation id used in the FTS service.
+        vos (Optional[List[str]]): The list containing the vos the user belongs to.
+        vos_id (Optional[List[str]]): The ids of the vos the user belongs to.
+        voms_cred (Optional[List[str]]): The list of vo groups the user belongs to.
     """
     kind: str
     base_id: str
