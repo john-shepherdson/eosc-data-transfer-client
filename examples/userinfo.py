@@ -20,7 +20,7 @@ from eosc_data_transfer_client.exceptions import EOSCError
 
 token = os.environ.get('BEARER_TOKEN', 'my_token')
 
-client = EOSCClient("https://eosc-data-transfer-001.cern.ch", token=token)
+client = EOSCClient("https://data-transfer.service.eosc-beyond.eu", token=token)
 
 try:
     user_info = get_user_info(client)
