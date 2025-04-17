@@ -34,7 +34,7 @@ def create_transfer(client: EOSCClient, transfer: TransferRequest) -> TransferRe
         EOSCClientError: If the API returns a 4xx error (e.g., invalid input).
         EOSCServerError: If the API returns a 5xx error (e.g., internal server error).
     """
-    response = client.request("POST", "/transfers", json=transfer.dict())
+    response = client.request("POST", "/transfers", json=transfer.model_dump())
     return TransferResponse(**response)
 
 def get_transfer_status(client: EOSCClient, transfer_id: str) -> TransferStatus:

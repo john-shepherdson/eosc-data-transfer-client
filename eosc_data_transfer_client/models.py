@@ -188,5 +188,5 @@ class UserInfo(BaseModel):
     vos_id: Optional[List[str]] = None
     voms_cred: Optional[List[str]] = None
 
-    class Config:
+    class ConfigDict:
         extra = "allow"  # Allow unrecognized fields in future responses
