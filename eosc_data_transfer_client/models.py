@@ -126,3 +126,41 @@ class TransferStatusList(BaseModel):
     kind: str
     count: int
     transfers: List[TransferStatus]
+
+class StorageElement(BaseModel):
+    """
+    Represents a single file or folder item parsed from a DOI.
+    Attributes:
+        kind (str): The type of content (should be 'StorageElement').
+        name (str): Name of the file.
+        path (str): Path to the file.
+        isFolder (bool): Whether the storage element corresponds to a folder.
+        isAccessible (bool): Whether the storage element is publicly accessible.
+        mediaType (str): The storage element media type.
+        accessUrl (str): The url to access the storage element.
+        downloadUrl (str): The url to download the storage element.
+        checksum (str): The checksum of the storage element.
+    """
+    kind: str
+    name: str
+    path: str
+    isFolder: bool
+    isAccessible: bool
+    size: int
+    mediaType: str
+    accessUrl: str
+    downloadUrl: str
+    checksum: str
+
+class StorageContent(BaseModel):
+    """
+    Represents the parsed content result of a DOI, including a list of downloadable elements.
+
+    Attributes:
+        kind (str): The type of content (should be 'StorageContent').
+        count (int): Number of elements parsed.
+        elements (List[StorageElement]): List of parsed file or folder items.
+    """
+    kind: str
+    count: int
+    elements: List[StorageElement]

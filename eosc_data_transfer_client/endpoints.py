@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from .client import EOSCClient
-from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList
+from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList, StorageContent
 from datetime import datetime
 from typing import Optional, Any, Union
 
@@ -132,3 +132,20 @@ def list_transfers(client: EOSCClient, **filters: Optional[Any]) -> TransferStat
     response = client.request("GET", "/transfers", params=query_params)
     return TransferStatusList(**response)
 
+def parse_doi(client: EOSCClient, doi: str) -> StorageContent:
+    """
+    Parse a PID (e.g., DOI) and retrieve associated file metadata.
+
+    Args:
+        pid (str): The persistent identifier to parse.
+
+    Returns:
+        StorageContent: Parsed metadata including a list of files
+
+    Raises:
+        EOSCClientError: For 4xx errors.
+        EOSCServerError: For 5xx errors.
+        EOSCRequestError: For network issues.
+    """
+    response = client.request("GET", "/parser", params={"doi": doi})
+    return StorageContent(**response)

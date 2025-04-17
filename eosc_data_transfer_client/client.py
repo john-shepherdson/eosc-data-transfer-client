@@ -54,7 +54,7 @@ class EOSCClient:
         """
         url = f"{self.base_url}{endpoint}"
         try:
-            response = self.session.request(method, url, **kwargs, verify=False)
+            response = self.session.request(method, url, **kwargs)
             if 400 <= response.status_code < 500:
                 try:
                     message = response.json()

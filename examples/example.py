@@ -14,7 +14,6 @@
 
 import os
 import sys
-import time
 from eosc_data_transfer_client.client import EOSCClient
 from eosc_data_transfer_client.models import TransferRequest, FileTransfer, TransferParameters
 from eosc_data_transfer_client.endpoints import * 
