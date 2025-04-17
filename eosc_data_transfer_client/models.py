@@ -130,6 +130,7 @@ class TransferStatusList(BaseModel):
 class StorageElement(BaseModel):
     """
     Represents a single file or folder item parsed from a DOI.
+
     Attributes:
         kind (str): The type of content (should be 'StorageElement').
         name (str): Name of the file.
