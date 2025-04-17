@@ -1,6 +1,6 @@
 # EOSC Data Transfer Client
 
-Welcome to the documentation for the **EOSC Data Transfer Client** — a Python wrapper for interacting with the [EOSC Data Transfer Service](https://data-transfer.service.eosc-beyond.eu/).
+Welcome to the documentation for the **EOSC Data Transfer Client** — a Python wrapper for interacting with the [EOSC Data Transfer Service](https://data-transfer.service.eosc-beyond.eu/swagger-ui/).
 
 This client provides a simple and structured way to:
 
