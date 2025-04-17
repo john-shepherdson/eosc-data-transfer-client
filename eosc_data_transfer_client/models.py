@@ -172,7 +172,7 @@ class UserInfo(BaseModel):
     Fields vary depending on authentication status.
 
     Attributes:
-        kind (str): The type of content (should be 'StorageContent').
+        kind (str): The type of content (should be 'UserInfo').
         base_id (base_id): The id that identifies the user.
         user_dn (str): The user distinguished name (DN)
         delegation_id (str): The delegation id used in the FTS service.
