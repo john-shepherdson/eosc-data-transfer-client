@@ -9,6 +9,7 @@ This client provides a simple and structured way to:
 - Cancel jobs
 - Retrieve specific metadata fields
 - Search through previous transfers
+- Digital Object Indetifier (DIO) parsing
 
 It is built on top of the [requests](https://docs.python-requests.org/en/latest/) library and uses Pydantic models for robust data validation.
 

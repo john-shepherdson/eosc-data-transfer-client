@@ -69,7 +69,6 @@ request = TransferRequest(
     params = params
 )
 
-
 # Submit file transfer request to the EOSC data transfer API
 try:
     response = create_transfer(client, request)

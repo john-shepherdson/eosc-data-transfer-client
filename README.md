@@ -10,6 +10,7 @@ Look at the complete [documentation](https://eosc-data-transfer-client.docs.cern
 * Submit and monitor data transfers
 * Cancel data transfer jobs
 * Filter and search transfers
+* Digital Object Indetifier (DIO) parsing
 * Robust error handling with custom exceptions
 * Pydantic models for easy validation
 * Unit tests included with pytest
