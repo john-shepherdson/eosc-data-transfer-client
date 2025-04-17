@@ -12,22 +12,19 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from .client import EOSCClient
-from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList, TransferParameters, FileTransfer, UserInfo
-from .endpoints import create_transfer, list_transfers, get_transfer_status, get_transfer_field, cancel_transfer, parse_doi, get_user_info
+import os
+import sys
+from eosc_data_transfer_client.client import EOSCClient
+from eosc_data_transfer_client.endpoints import get_user_info
+from eosc_data_transfer_client.exceptions import EOSCError
 
-__all__ = [
-    "EOSCClient",
-    "TransferRequest",
-    "TransferResponse",
-    "TransferStatus",
-    "TransferStatusList",
-    "create_transfer",
-    "list_transfers",
-    "get_transfer_status",
-    "get_transfer_filed",
-    "cancel_transfer",
-    "parse_doi",
-    "get_user_info"
-]
+token = os.environ.get('BEARER_TOKEN', 'my_token')
 
+client = EOSCClient("https://eosc-data-transfer-001.cern.ch", token=token)
+
+try:
+    user_info = get_user_info(client)
+    print(user_info.model_dump(mode='json'))
+except EOSCError as e:
+    print(f"[ERROR] {e}\n")
+    sys.exit()

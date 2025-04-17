@@ -164,3 +164,25 @@ class StorageContent(BaseModel):
     kind: str
     count: int
     elements: List[StorageElement]
+
+class UserInfo(BaseModel):
+    """
+    Represents information about the current user, retrieved from the /userinfo endpoint.
+
+    Fields vary depending on authentication status.
+
+    Attributes:
+        kind (str): The type of content (should be 'StorageContent').
+        base_id (base_id): Number of elements parsed.
+        user_dn (str): List of parsed file or folder items.
+    """
+    kind: str
+    base_id: str
+    user_dn: str
+    delegation_id: Optional[str] = None
+    vos: Optional[List[str]] = None
+    vos_id: Optional[List[str]] = None
+    voms_cred: Optional[List[str]] = None
+
+    class Config:
+        extra = "allow"  # Allow unrecognized fields in future responses

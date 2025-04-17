@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from .client import EOSCClient
-from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList, StorageContent
+from .models import TransferRequest, TransferResponse, TransferStatus, TransferStatusList, StorageContent, UserInfo
 from datetime import datetime
 from typing import Optional, Any, Union
 
@@ -149,3 +149,13 @@ def parse_doi(client: EOSCClient, doi: str) -> StorageContent:
     """
     response = client.request("GET", "/parser", params={"doi": doi})
     return StorageContent(**response)
+
+def get_user_info(client: EOSCClient) -> UserInfo:
+    """
+    Retrieve user information from the EOSC Data Transfer service.
+
+    Returns:
+        UserInfo: Metadata about the current user, including identity, VO membership, and permissions.
+    """
+    response = client.request("GET", "/user/info")
+    return UserInfo(**response)

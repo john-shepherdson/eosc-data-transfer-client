@@ -22,7 +22,6 @@ token = os.environ.get('BEARER_TOKEN', 'my_token')
 
 client = EOSCClient("https://data-transfer.service.eosc-beyond.eu", token=token)
 
-client = EOSCClient(base_url="https://data-transfer.service.eosc-beyond.eu", token="your-access-token")
 doi = "doi:10.5281/zenodo.6511035"
 
 try:
