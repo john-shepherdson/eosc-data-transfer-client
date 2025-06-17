@@ -35,9 +35,9 @@ token = os.environ.get('BEARER_TOKEN', 'my_token')
 
 client = EOSCClient("https://data-transfer.service.eosc-beyond.eu", token=token)
 
-doi = "doi:10.5281/zenodo.6511035"
+doi = "doi:10.5281/zenodo.10157504"
 
-destination_storage = "https://eospilot.cern.ch:443//eos/pilot/opstest/dteam/batistal/"
+destination_storage = "s3s://play.min.io/fts-integration/eosc-data-transfer/"
 
 # Parse DOI to obtain a list of file urls
 try:
@@ -58,9 +58,9 @@ for element in storage_elements.elements:
 
 # Create tranfer paramenters
 params = TransferParameters(
-    verifyChecksum=True,
+    verifyChecksum=False,
     overwrite=False,
-    retry=2
+    retry=0
 )
 
 # Create the file transfer request
