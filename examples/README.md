@@ -7,6 +7,8 @@ To run the scripts run the following commands:
 git clone https://gitlab.com/fts/eosc-data-transfer-client.git
 cd eosc-data-transfer-client
 python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+pip install -e .
 python3 examples/example.py
 ```

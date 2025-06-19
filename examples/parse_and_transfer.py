@@ -14,6 +14,7 @@
 
 import os
 import sys
+import time
 from eosc_data_transfer_client.client import EOSCClient
 from eosc_data_transfer_client.models import TransferRequest, FileTransfer, TransferParameters
 from eosc_data_transfer_client.endpoints import * 
@@ -30,8 +31,13 @@ from eosc_data_transfer_client.exceptions import EOSCError
     Transfer API
 """
 
-
-token = os.environ.get('BEARER_TOKEN', 'my_token')
+# Check if the token is set
+token = os.environ.get('BEARER_TOKEN')
+if token is None:
+    raise EnvironmentError(
+        "Error: The environment variable 'BEARER_TOKEN' is not set. "
+        "Please set it before running this program."
+    )
 
 client = EOSCClient("https://data-transfer.service.eosc-beyond.eu", token=token)
 
@@ -58,8 +64,8 @@ for element in storage_elements.elements:
 
 # Create tranfer paramenters
 params = TransferParameters(
-    verifyChecksum=False,
-    overwrite=False,
+    verifyChecksum=True,
+    overwrite=True,
     retry=0
 )
 
@@ -73,6 +79,14 @@ request = TransferRequest(
 try:
     response = create_transfer(client, request)
     print(f"Job submitted:\n\tjobId={response.jobId}")
+
+    # Wait before querying the status
+    time.sleep(20)  # Sleep for 5 seconds
+
+    # Query the status of the transfer
+    status = get_transfer_status(client, response.jobId)
+    print(f"Job status:\n\t{status.model_dump()}")
+    # Final solution should poll the status of the transfers until it reaches a terminal state
 except EOSCError as e:
     print(f"[ERROR] {e}\n")
     sys.exit()
